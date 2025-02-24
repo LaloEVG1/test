@@ -17,7 +17,7 @@ height = st.number_input("Altura (m)", min_value=0.0, step=0.1)
 soil_height = st.number_input("Colchon (m)", min_value=0.0, step=0.1)
 num_cells = st.number_input("Celdas", min_value=1, step=1)
 total_length = st.number_input("Longitud(m)", min_value=0.0, step=0.1)
-zone = st.number_input("Zona (Km al proyecto a partir de Terra)", min_value=0.0, max_value=100, step=1)
+zone = st.number_input("Zona (Km al proyecto a partir de Terra)", min_value=0.0, max_value=100.0, step=0.1)
 year = st.number_input("Año", min_value=2021, max_value=2026, step=1)
 
 # Predict button
