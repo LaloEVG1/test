@@ -8,6 +8,9 @@ model = joblib.load("culvert_model.pkl")
 # Title of the app
 st.title("ESTIMACION COSTO CAJÓN PLUVIAL")
 
+
+st.image("cajon.png", caption="Ejemplo", use_column_width=True)
+
 # Input fields for the 10 variables
 clear_length = st.number_input("Claro Libre (m)", min_value=0.0, step=0.1)
 height = st.number_input("Altura (m)", min_value=0.0, step=0.1)
