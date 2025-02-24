@@ -6,7 +6,7 @@ import numpy as np
 model = joblib.load("culvert_model.pkl")
 
 # Title of the app
-st.title("Box Culvert Cost Estimator")
+st.title("ESTIMACION COSTO CAJÓN PLUVIAL")
 
 # Input fields for the 10 variables
 clear_length = st.number_input("Claro Libre (m)", min_value=0.0, step=0.1)
