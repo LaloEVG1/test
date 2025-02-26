@@ -9,6 +9,21 @@ model = joblib.load("culvert_model.pkl")
 st.title("ESTIMACION COSTO CAJÓN PLUVIAL")
 
 
+tab1, tab2, tab3 = st.tabs(["Tab 1", "Tab 2", "Tab 3"])
+
+with tab1:
+    st.header("This is Tab 1")
+    st.write("Content for the first tab.")
+
+with tab2:
+    st.header("This is Tab 2")
+    st.write("Content for the second tab.")
+
+with tab3:
+    st.header("This is Tab 3")
+    st.write("Content for the third tab.")
+
+
 st.image("cajon.png", caption="Ejemplo", use_container_width=True)
 
 # Input fields for the 10 variables
