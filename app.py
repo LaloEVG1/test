@@ -50,8 +50,8 @@ if st.session_state.authenticated:
         st.session_state.culvert_estimates.append({
             "name": name,
             "type": culvert_type,  # Store the type from the tab
-            "cost": estimated_cost,
-            "quantity": 1,  # Default quantity (editable in summary tab)
+            "P.U": estimated_cost,
+            "Cantidad": 1,  # Default quantity (editable in summary tab)
         })
     
         st.success(f"Saved {name} ({culvert_type}) with Cost: ${estimated_cost}")
