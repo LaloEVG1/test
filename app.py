@@ -52,6 +52,7 @@ if st.session_state.authenticated:
             "type": culvert_type,  # Store the type from the tab
             "P.U": estimated_cost,
             "Cantidad": 1,  # Default quantity (editable in summary tab)
+            "Subtotal": estimated_cost*1
         })
     
         st.success(f"Saved {name} ({culvert_type}) with Cost: ${estimated_cost}")
