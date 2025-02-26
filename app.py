@@ -159,7 +159,7 @@ if st.session_state.authenticated:
             st.subheader("Cost Distribution by Culvert Type")
     
             # Group by "type" and sum the subtotals
-            type_totals = updated_df.groupby("Tipo")["Subtotal"].sum()
+            type_totals = df.groupby("Tipo")["Subtotal"].sum()
     
             if not type_totals.empty:
                 # Create Pie Chart
