@@ -7,9 +7,9 @@ import pandas as pd
 model = joblib.load("culvert_model.pkl")
 
 
-
 # Set a password (you can change this)
-PASSWORD = "mysecurepassword"
+PASSWORD = "terra"
+
 
 # Initialize session state
 if "authenticated" not in st.session_state:
@@ -31,24 +31,32 @@ if not st.session_state.authenticated:
 
 
 
-
+### acciones si se ingresa contraseña correcta
 if st.session_state.authenticated:
     
-
-
-
-
-
 
 
     # Initialize session state for storing multiple estimates
     if "culvert_estimates" not in st.session_state:
         st.session_state.culvert_estimates = []
     
-    
-    
     # Title of the app
     st.title("ESTIMACIÓN DE COSTOS DE URBANIZACION")
+
+### guadar info de cada tab
+    def save_estimate(culvert_type, estimated_cost, name):
+
+    # Save data to session state with the type of culvert
+        st.session_state.culvert_estimates.append({
+            "name": name,
+            "type": culvert_type,  # Store the type from the tab
+            "cost": estimated_cost,
+            "quantity": 1,  # Default quantity (editable in summary tab)
+        })
+    
+        st.success(f"Saved {name} ({culvert_type}) with Cost: ${estimated_cost}")
+    
+
     
     
     tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["Cajon Pluvial", "Tuberías", "Movimientos de tierra", "Bardas", "Muros de contención", "RESUMEN"])
@@ -72,23 +80,13 @@ if st.session_state.authenticated:
         if st.button("Estimate Cost"):
             input_data = np.array([[clear_length, height, soil_height, num_cells, total_length, zone, year]])
             estimated_cost = round(model.predict(input_data)[0], 2)
+            save_estimate("Pluvial", estimated_cost, culvert_name)
     
     
     
             
     
-            # Save to session state as a dictionary
-            st.session_state.culvert_estimates.append({
-                "Tipo": culvert_name,
-                "P.U": estimated_cost,
-                "Cantidad": 1,  # Default quantity (editable in table)
 
-            })
-    
-            st.success(f"Saved {culvert_name} with Cost: ${estimated_cost}")
-    
-                #"delete": False  # Checkbox for deletion    
-    
     
     with tab2:
         st.header("This is Tab 2")
