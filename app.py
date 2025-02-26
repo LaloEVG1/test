@@ -2,6 +2,7 @@ import streamlit as st
 import joblib
 import numpy as np
 import pandas as pd
+import mathplotlib as plt
 
 # Load the trained model
 model = joblib.load("culvert_model.pkl")
