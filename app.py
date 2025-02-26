@@ -153,8 +153,24 @@ if st.session_state.authenticated:
                 st.session_state.culvert_estimates = []
                 st.warning("All estimates have been cleared!")
                 st.rerun()
+                
     
+                # === PIE CHART: COST PER TYPE ===
+            st.subheader("Cost Distribution by Culvert Type")
     
+            # Group by "type" and sum the subtotals
+            type_totals = updated_df.groupby("type")["subtotal"].sum()
+    
+            if not type_totals.empty:
+                # Create Pie Chart
+                fig, ax = plt.subplots()
+                ax.pie(type_totals, labels=type_totals.index, autopct="%1.1f%%", startangle=90, colors=["#ff9999","#66b3ff","#99ff99"])
+                ax.axis("equal")  # Equal aspect ratio ensures pie is circular
+    
+                # Display Pie Chart in Streamlit
+                st.pyplot(fig)
+            else:
+                st.warning("No data available for pie chart.")
     
         
         else:
