@@ -71,7 +71,7 @@ if st.session_state.authenticated:
         # Predict button
         if st.button("Estimate Cost"):
             input_data = np.array([[clear_length, height, soil_height, num_cells, total_length, zone, year]])
-            estimated_cost = model.predict(input_data)[0]
+            estimated_cost = round(model.predict(input_data)[0], 2)
     
     
     
@@ -79,15 +79,15 @@ if st.session_state.authenticated:
     
             # Save to session state as a dictionary
             st.session_state.culvert_estimates.append({
-                "name": culvert_name,
-                "cost": estimated_cost,
-                "quantity": 1,  # Default quantity (editable in table)
-                "delete": False  # Checkbox for deletion
+                "Tipo": culvert_name,
+                "P.U": estimated_cost,
+                "Cantidad": 1,  # Default quantity (editable in table)
+
             })
     
             st.success(f"Saved {culvert_name} with Cost: ${estimated_cost}")
     
-    
+                #"delete": False  # Checkbox for deletion    
     
     
     with tab2:
@@ -123,23 +123,23 @@ if st.session_state.authenticated:
     
     
             # Remove selected rows
-            if any(item["delete"] for item in st.session_state.culvert_estimates):
-                st.session_state.culvert_estimates = [
-                    item for item in st.session_state.culvert_estimates if not item["delete"]
-                ]
-                st.experimental_rerun()  # Refresh the page after deletion
+            #if any(item["delete"] for item in st.session_state.culvert_estimates):
+             #   st.session_state.culvert_estimates = [
+              #      item for item in st.session_state.culvert_estimates if not item["delete"]
+               # ]
+                #st.experimental_rerun()  # Refresh the page after deletion
     
             # Calculate final cost
             df["final_cost"] = df["cost"] * df["quantity"]
     
             # Display updated table
-            st.write("Updated Estimates Table:")
-            st.dataframe(edited_df)
+            #st.write("Updated Estimates Table:")
+            #st.dataframe(edited_df)
     
     
             # Show total cost
             total_cost = df["final_cost"].sum()
-            st.subheader(f"Total Project Cost: ${total_cost}")
+            st.subheader(f"Costo total urbanización: ${total_cost}")
             
     
             # Clear all estimates
