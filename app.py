@@ -37,7 +37,14 @@ with tab1:
         input_data = np.array([[clear_length, height, soil_height, num_cells, total_length, zone, year]])
         estimated_cost = model.predict(input_data)[0]
         # Save to session state as a dictionary
-        st.session_state.culvert_estimates.append({"name": culvert_name, "cost": estimated_cost})
+
+        # Save to session state as a dictionary
+        st.session_state.culvert_estimates.append({
+            "name": culvert_name,
+            "cost": estimated_cost,
+            "quantity": 1  # Default quantity (user can change later)
+        })
+
         st.success(f"Saved {culvert_name} with Cost: ${estimated_cost}")
         
 with tab2:
@@ -61,9 +68,26 @@ with tab6:
     st.write("Content for the third tab.")
 
     if st.session_state.culvert_estimates:
-        # Display saved culverts
-        for i, estimate in enumerate(st.session_state.culvert_estimates):
-            st.write(f"**{i+1}. {estimate['name']}** - Cost: **${estimate['cost']}**")
+        # Convert to DataFrame
+        df = pd.DataFrame(st.session_state.culvert_estimates)
+        for i in range(len(df)):
+            df.at[i, "quantity"] = st.number_input(
+                f"Quantity for {df.at[i, 'name']}", 
+                min_value=1, 
+                value=df.at[i, "quantity"], 
+                key=f"qty_{i}"
+            )
+
+        # Calculate final cost
+        df["final_cost"] = df["cost"] * df["quantity"]
+
+        # Display table
+        st.dataframe(df)
+
+        # Show total cost
+        total_cost = df["final_cost"].sum()
+        st.subheader(f"Total Project Cost: ${total_cost}")
+        
 
         # Clear all estimates
         if st.button("Clear All Estimates"):
