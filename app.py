@@ -123,7 +123,10 @@ if st.session_state.authenticated:
             
             # Update session state with edited values
             st.session_state.culvert_estimates = edited_df.to_dict("records")  
-    
+
+                    
+            for item in st.session_state.culvert_estimates:
+                item["subtotal"] = item["cost"] * item["quantity"]
     
             # Remove selected rows
             #if any(item["delete"] for item in st.session_state.culvert_estimates):
