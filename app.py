@@ -9,7 +9,7 @@ model = joblib.load("culvert_model.pkl")
 st.title("ESTIMACION COSTO CAJÓN PLUVIAL")
 
 
-tab1, tab2, tab3 = st.tabs(["Tab 1", "Tab 2", "Tab 3"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Cajon Pluvial", "Tuberías", "Movimientos de tierra", "Bardas", "Muros de contención"])
 
 with tab1:
     st.header("CAJON PLUVIAL")
@@ -36,6 +36,14 @@ with tab2:
     st.write("Content for the second tab.")
 
 with tab3:
+    st.header("This is Tab 3")
+    st.write("Content for the third tab.")
+
+with tab4:
+    st.header("This is Tab 3")
+    st.write("Content for the third tab.")
+
+with tab5:
     st.header("This is Tab 3")
     st.write("Content for the third tab.")
 
