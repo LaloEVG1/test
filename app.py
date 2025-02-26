@@ -130,7 +130,7 @@ if st.session_state.authenticated:
                 #st.experimental_rerun()  # Refresh the page after deletion
     
             # Calculate final cost
-            df["final_cost"] = df["cost"] * df["quantity"]
+            df["final_cost"] = df["P.U"] * df["Cantidad"]
     
             # Display updated table
             #st.write("Updated Estimates Table:")
