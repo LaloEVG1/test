@@ -109,6 +109,10 @@ if st.session_state.authenticated:
     with tab6:
         st.header("This is Tab 3")
         st.write("Content for the third tab.")
+
+
+        if st.button("Refresh"):
+            st.rerun()
     
         if st.session_state.culvert_estimates:
             # Convert to DataFrame
