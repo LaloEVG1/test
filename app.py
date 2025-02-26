@@ -37,17 +37,24 @@ with tab1:
     if st.button("Estimate Cost"):
         input_data = np.array([[clear_length, height, soil_height, num_cells, total_length, zone, year]])
         estimated_cost = model.predict(input_data)[0]
-        # Save to session state as a dictionary
+
+
+
+        
 
         # Save to session state as a dictionary
         st.session_state.culvert_estimates.append({
             "name": culvert_name,
             "cost": estimated_cost,
-            "quantity": 1  # Default quantity (user can change later)
+            "quantity": 1,  # Default quantity (editable in table)
+            "delete": False  # Checkbox for deletion
         })
 
         st.success(f"Saved {culvert_name} with Cost: ${estimated_cost}")
-        
+
+
+
+
 with tab2:
     st.header("This is Tab 2")
     st.write("Content for the second tab.")
@@ -71,19 +78,29 @@ with tab6:
     if st.session_state.culvert_estimates:
         # Convert to DataFrame
         df = pd.DataFrame(st.session_state.culvert_estimates)
-        for i in range(len(df)):
-            df.at[i, "quantity"] = st.number_input(
-                f"Quantity for {df.at[i, 'name']}", 
-                min_value=1, 
-                value=int(df.at[i, "quantity"]), 
-                key=f"qty_{i}"
-            )
+
+        # Make table editable
+        edited_df = st.data_editor(df, num_rows="dynamic", key="estimates_table")
+
+        
+        # Update session state with edited values
+        st.session_state.culvert_estimates = edited_df.to_dict("records")  
+
+
+        # Remove selected rows
+        if any(item["delete"] for item in st.session_state.culvert_estimates):
+            st.session_state.culvert_estimates = [
+                item for item in st.session_state.culvert_estimates if not item["delete"]
+            ]
+            st.experimental_rerun()  # Refresh the page after deletion
 
         # Calculate final cost
         df["final_cost"] = df["cost"] * df["quantity"]
 
-        # Display table
-        st.dataframe(df)
+        # Display updated table
+        st.write("Updated Estimates Table:")
+        st.dataframe(edited_df)
+
 
         # Show total cost
         total_cost = df["final_cost"].sum()
@@ -94,6 +111,11 @@ with tab6:
         if st.button("Clear All Estimates"):
             st.session_state.culvert_estimates = []
             st.warning("All estimates have been cleared!")
+            st.experimental_rerun()
+
+
+
+    
     else:
         st.warning("No estimates saved yet.")
 
