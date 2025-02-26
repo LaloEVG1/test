@@ -126,7 +126,7 @@ if st.session_state.authenticated:
 
                     
             for item in st.session_state.culvert_estimates:
-                item["subtotal"] = item["cost"] * item["quantity"]
+                item["Subtotal"] = item["P.U"] * item["Cantidad"]
     
             # Remove selected rows
             #if any(item["delete"] for item in st.session_state.culvert_estimates):
