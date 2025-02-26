@@ -75,7 +75,7 @@ with tab6:
             df.at[i, "quantity"] = st.number_input(
                 f"Quantity for {df.at[i, 'name']}", 
                 min_value=1, 
-                value=df.at[i, "quantity"], 
+                value=int(df.at[i, "quantity"]), 
                 key=f"qty_{i}"
             )
 
