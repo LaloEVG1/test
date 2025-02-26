@@ -24,7 +24,7 @@ if not st.session_state.authenticated:
         if password_input == PASSWORD:
             st.session_state.authenticated = True  # Unlock the app
             st.success("Login successful! Redirecting...")
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.error("Incorrect password. Please try again.")
 
@@ -146,7 +146,7 @@ if st.session_state.authenticated:
             if st.button("Clear All Estimates"):
                 st.session_state.culvert_estimates = []
                 st.warning("All estimates have been cleared!")
-                st.experimental_rerun()
+                st.rerun()
     
     
     
